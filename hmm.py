@@ -15,8 +15,7 @@ def forward(y, A, B, π):
     α = np.zeros(shape=(T, n_states))  # forward probability
 
     # base cases
-    for i in range(n_states):
-        α[0][i] = π[i] * B[i, y[0]]
+    α[0] = π * B[:, y[0]]
 
     # recursion
     for t in range(1, T):
@@ -41,8 +40,7 @@ def viterbi(y, A, B, π):
     β = np.zeros(shape=(T, n_states), dtype=int)  # back pointers
 
     # base cases
-    for i in range(n_states):
-        α[0][i] = π[i] * B[i, y[0]]
+    α[0] = π * B[:, y[0]]
 
     # recursion
     for t in range(1, T):
