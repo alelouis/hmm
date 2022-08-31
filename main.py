@@ -7,9 +7,8 @@ if __name__ == '__main__':
     π = np.array([0.375, 0.625])  # initial probability distribution
     T = 10  # sequence length
     y = np.random.randint(0, 2, T)
-    y = np.array([0, 0, 1])
 
     l = forward(y, A, B, π)
-    best_path, α, β = viterbi(y, A, B, π)
+    best_path, v, b = viterbi(y, A, B, π)
     print(l)
     print(best_path)

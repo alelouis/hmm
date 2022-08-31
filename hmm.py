@@ -36,24 +36,24 @@ def viterbi(y, A, B, π):
     """
     n_states = A.shape[0]
     T = y.size  # sequence length
-    α = np.zeros(shape=(T, n_states))  # forward probability
-    β = np.zeros(shape=(T, n_states), dtype=int)  # back pointers
+    v = np.zeros(shape=(T, n_states))  # forward probability
+    b = np.zeros(shape=(T, n_states), dtype=int)  # back pointers
 
     # base cases
-    α[0] = π * B[:, y[0]]
+    v[0] = π * B[:, y[0]]
 
     # recursion
     for t in range(1, T):
-        branches = np.array([α[t - 1][j] * A[j, :] * B[:, y[t]] for j in range(n_states)])
-        α[t] = np.max(branches, axis=0)
-        β[t] = np.argmax(branches, axis=0)
+        branches = np.array([v[t - 1][j] * A[j, :] * B[:, y[t]] for j in range(n_states)])
+        v[t] = np.max(branches, axis=0)
+        b[t] = np.argmax(branches, axis=0)
 
     # build best path
     best_path = []
-    last_pointer = np.argmax(α[-1, :])
+    last_pointer = np.argmax(v[-1, :])
     for t in reversed(range(0, T)):
         best_path.append(last_pointer)
-        last_pointer = β[t][last_pointer]
+        last_pointer = b[t][last_pointer]
     best_path = np.array(np.flip(best_path))
 
-    return best_path, α, β
+    return best_path, v, b
