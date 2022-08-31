@@ -4,6 +4,7 @@ import numpy as np
 def forward(y, A, B, π):
     """
     Forward algorithm, compute likelihood of given observed vector
+    https://web.stanford.edu/~jurafsky/slp3/A.pdf
     :param y: Observation vector
     :param A: State transition matrix
     :param B: Emission matrix
@@ -28,6 +29,7 @@ def forward(y, A, B, π):
 def viterbi(y, A, B, π):
     """
     Viterbi algorithm, find MAP hidden state vector path
+    https://web.stanford.edu/~jurafsky/slp3/A.pdf
     :param y: Observation vector
     :param A: State transition matrix
     :param B: Emission matrix
